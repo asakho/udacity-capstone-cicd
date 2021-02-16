@@ -31,7 +31,7 @@ pipeline {
 	 
 	stage('Create k8s cluster') {
 	    steps {
-		withAWS(credentials: 'aws-kubectl', region: 'us-west-2a') {
+		withAWS(credentials: 'aws-key', region: 'us-west-2a') {
 		    sh 'echo "Create k8s cluster..."'
 		    sh '''
 			eksctl create cluster \
@@ -51,7 +51,7 @@ pipeline {
 	    
 	stage('Configure kubectl') {
 	    steps {
-		withAWS(credentials: 'aws-kubectl', region: 'us-west-2a') {
+		withAWS(credentials: 'aws-key', region: 'us-west-2a') {
 		    sh 'echo "Configure kubectl..."'
 		    sh 'aws eks --region us-west-2 update-kubeconfig --name CapstoneCluster' 
 		}
@@ -60,7 +60,7 @@ pipeline {
 
 	stage('Deploy blue container') {
 	    steps {
-		withAWS(credentials: 'aws-kubectl', region: 'us-west-2a') {
+		withAWS(credentials: 'aws-key', region: 'us-west-2a') {
 		    sh 'echo "Deploy blue container..."'
 		    sh 'kubectl apply -f ./blue/blue.yml'
 		}
@@ -69,7 +69,7 @@ pipeline {
 	    
 	stage('Deploy green container') {
 	    steps {
-		withAWS(credentials: 'aws-kubectl', region: 'us-west-2a') {
+		withAWS(credentials: 'aws-key', region: 'us-west-2a') {
 		    sh 'echo "Deploy green container..."'
 		    sh 'kubectl apply -f ./green/green.yml'
 		}
@@ -78,7 +78,7 @@ pipeline {
 	    
 	stage('Create blue service') {
 	    steps {
-		withAWS(credentials: 'aws-kubectl', region: 'us-west-2a') {
+		withAWS(credentials: 'aws-key', region: 'us-west-2a') {
 		    sh 'echo "Create blue service..."'
 		    sh 'kubectl apply -f ./blue/blue_service.yml'
 		}
@@ -87,7 +87,7 @@ pipeline {
 	    
 	stage('Update service to green') {
 	    steps {
-		withAWS(credentials: 'aws-kubectl', region: 'us-west-2a') {
+		withAWS(credentials: 'aws-key', region: 'us-west-2a') {
 		    sh 'echo "Update service to green..."'
 		    sh 'kubectl apply -f ./green/green_service.yml'
 		}
