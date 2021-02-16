@@ -3,7 +3,7 @@
 
 ## Project Overview
 
-- Create EKS infrastructure using cloudfront
+- Create EKS infrastructure using cloudformation
 - Deploy blue/green simple web page
 - based on Jenkins CI
 
